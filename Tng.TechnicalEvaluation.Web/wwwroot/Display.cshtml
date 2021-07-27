@@ -1,0 +1,79 @@
+﻿
+@{
+    var db = Database.Open("BillsOfMaterials");
+    var selectQueryString = "SELECT * FROM Parts ORDER BY Name";
+}
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Parts to be calculated</title>
+
+
+
+    <style>
+        table, th, td {
+            border: solid 1px #bbbbbb;
+            border-collapse: collapse;
+            padding: 2px;
+        }
+    </style>
+</head>
+
+<body>
+    <h1> Products</h1>
+    <table>
+        <thead>
+            <tr>
+                <th>ParentId</th>
+                <th>Id</th>
+                <th>Number</th>
+                <th>Description</th>
+                <th>Quantity</th>
+                <th>Cost</th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var row in db.Query(selectQueryString))
+            {
+                <tr>
+                    <td>@row.ParentId</td>
+                    <td>@row.Id</td>
+                    <td>@row.Number</td>
+                    <td>@row.Description</td>
+                    <td>@row.Quantity</td>
+                    <td>@row.Cost</td>
+                </tr>
+            }
+        </tbody>
+    </table>
+    <div>
+
+    </div>
+    <div class="control-label">
+        Numeric TextBox
+    </div>
+    <SfNumericTextBox TValue="double?" Value=10></SfNumericTextBox>
+
+    <script>
+        $(document).ready(function () {
+
+            $('#myTable').DataTable();
+        });
+    </script>
+
+
+    @*
+                        DataTable dt = new DataTable();
+                dt.Columns.AddRange(new DataColumn[4] {
+                    new DataColumn("Id", typeof(int)),
+                        new DataColumn("Number", typeof(string)),
+                        new DataColumn("Quantity", typeof(int)),
+                        new DataColumn("Price", typeof(int))
+                });
+                Decimal TotalPrice = Convert.ToDecimal(dt.Compute("SUM(Price)", string.Empty));
+        Decimal TotalPrice = Convert.ToDecimal(dt.Compute("SUM(Price)", "Id > 3"
+
+    *@
+
+</body>
+</html>
